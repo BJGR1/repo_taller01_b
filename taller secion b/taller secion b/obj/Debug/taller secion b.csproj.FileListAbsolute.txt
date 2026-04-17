@@ -1,0 +1,5 @@
+C:\Users\Usuario\Desktop\Taller seccion B\taller secion b\taller secion b\bin\Debug\taller secion b.exe
+C:\Users\Usuario\Desktop\Taller seccion B\taller secion b\taller secion b\bin\Debug\taller secion b.pdb
+C:\Users\Usuario\Desktop\Taller seccion B\taller secion b\taller secion b\obj\Debug\taller secion b.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Desktop\Taller seccion B\taller secion b\taller secion b\obj\Debug\taller secion b.exe
+C:\Users\Usuario\Desktop\Taller seccion B\taller secion b\taller secion b\obj\Debug\taller secion b.pdb

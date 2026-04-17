@@ -14,7 +14,7 @@ namespace taller_secion_b
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			Console.WriteLine("ya lo hice");
 			
 			// TODO: Implement Functionality Here
 			
