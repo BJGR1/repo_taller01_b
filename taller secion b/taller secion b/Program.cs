@@ -1,14 +1,6 @@
-﻿/*
- * Creado por SharpDevelop.
- * Usuario: brayhan garcia
- * Fecha: 17/4/2026
- * Hora: 2:26 p. m.
- * 
- * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
- */
+﻿
 using System;
 using System.IO;
-
 
 namespace taller_seccion_b
 {
@@ -27,13 +19,10 @@ namespace taller_seccion_b
             }
 
             Console.WriteLine("ya lo hice");
-            Console.WriteLine(rutaRaiz);
-            Console.WriteLine(rutaReportes);
-
-            Console.WriteLine("Introduce el usuario y la clave (formato: usuario;clave)");
+            Console.WriteLine("Introduce el usuario y la clave (usuario;clave)");
             string entrada = Console.ReadLine();
 
-            if (entrada.Contains(";"))
+            if (entrada != null && entrada.Contains(";"))
             {
                 string[] partes = entrada.Split(';');
                 string usuario = partes[0];
@@ -42,7 +31,6 @@ namespace taller_seccion_b
                 if (clave.Contains("123"))
                 {
                     Console.WriteLine("Clave debil detectada, guardando aviso...");
-
                     using (StreamWriter sw = new StreamWriter(archivoSeguridad, true))
                     {
                         sw.WriteLine("Clave Debil detectada");
@@ -51,6 +39,51 @@ namespace taller_seccion_b
                 else
                 {
                     Console.WriteLine("La clave es segura");
+                }
+            }
+
+string rutaBase = Directory.GetCurrentDirectory();
+int indiceRepo = rutaBase.IndexOf("repo_taller01_b");
+
+
+string rutaRepositorio = (indiceRepo != -1) 
+    ? rutaBase.Substring(0, indiceRepo + "repo_taller01_b".Length) 
+    : rutaBase;
+
+string imagenOrigen = Path.Combine(rutaRepositorio, "avatar.jpg");
+string imagenDestino = Path.Combine(rutaReportes, "respaldo.jpg");
+
+Console.WriteLine("Buscando imagen en: " + imagenOrigen);
+            if (File.Exists(imagenOrigen))
+            {
+                using (FileStream fsIn = new FileStream(imagenOrigen, FileMode.Open, FileAccess.Read))
+                using (FileStream fsOut = new FileStream(imagenDestino, FileMode.Create, FileAccess.Write))
+                {
+                    byte[] buffer = new byte[1024];
+                    int bytesLeidos;
+                    while ((bytesLeidos = fsIn.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        fsOut.Write(buffer, 0, bytesLeidos);
+                    }
+                }
+                Console.WriteLine("Imagen clonada byte a byte con exito");
+            }
+            else
+            {
+                Console.WriteLine("No se encontro la imagen en: " + imagenOrigen);
+            }
+
+            if (Directory.Exists(rutaReportes))
+            {
+                string[] archivos = Directory.GetFiles(rutaReportes);
+                foreach (string archivo in archivos)
+                {
+                    FileInfo info = new FileInfo(archivo);
+                    if (info.Length > 5120)
+                    {
+                        Console.WriteLine("Borrando archivo pesado: " + info.Name);
+                        info.Delete();
+                    }
                 }
             }
 
