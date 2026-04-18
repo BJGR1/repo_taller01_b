@@ -9,31 +9,53 @@
 using System;
 using System.IO;
 
-namespace taller_secion_b
+
+namespace taller_seccion_b
 {
-	class Program
-	{
-		public static void Main(string[] args)
-		{
-			Console.WriteLine("ya lo hice");
-			
-			//  directorio
-			string rutaRaiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"DATOSIUJO");
-			
-			string rutaReportes =Path.Combine(rutaRaiz, "Reportes");
-			
-			Console.WriteLine(rutaRaiz);
-			Console.WriteLine(rutaReportes);
-			if (!Directory.Exists(rutaReportes)){
-				//crear el directorio reportes
-				Directory.CreateDirectory(rutaReportes);
-				Console.WriteLine("directorio creado correctamente");
-			    
-			}
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            string rutaRaiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATOSIUJO");
+            string rutaReportes = Path.Combine(rutaRaiz, "Reportes");
+            string archivoSeguridad = Path.Combine(rutaReportes, "seguridad.txt");
 
+            if (!Directory.Exists(rutaReportes))
+            {
+                Directory.CreateDirectory(rutaReportes);
+                Console.WriteLine("directorio creado correctamente");
+            }
 
-			Console.Write("Press any key to continue . . . ");
-			Console.ReadKey(true);
-		}
-	}
+            Console.WriteLine("ya lo hice");
+            Console.WriteLine(rutaRaiz);
+            Console.WriteLine(rutaReportes);
+
+            Console.WriteLine("Introduce el usuario y la clave (formato: usuario;clave)");
+            string entrada = Console.ReadLine();
+
+            if (entrada.Contains(";"))
+            {
+                string[] partes = entrada.Split(';');
+                string usuario = partes[0];
+                string clave = partes[1];
+
+                if (clave.Contains("123"))
+                {
+                    Console.WriteLine("Clave debil detectada, guardando aviso...");
+
+                    using (StreamWriter sw = new StreamWriter(archivoSeguridad, true))
+                    {
+                        sw.WriteLine("Clave Debil detectada");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("La clave es segura");
+                }
+            }
+
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
 }
